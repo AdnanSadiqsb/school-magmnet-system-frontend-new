@@ -1,46 +1,26 @@
 import React, { Fragment , useState} from 'react'
 
-function AdmitionForm() {
+function UpdateStudent() {
     const [studentData, setStudentData]=useState({
-        name:'',
-        fName:'',
-        class:'',
-        section:'',
-        bForm:'',
-        fCNIC:'',
-        eMail:'',
-        address:'',
-        country:'',
-        city:'',
-        province:'',
-        fProfession:'',
-        mQualification:'',
-        fQualification:'',
-        fNumber:'',
-        gender:'',
-        religion:''
+        name:'adnna',
+        fName:'sadiq',
+        class:'2',
+        section:'1',
+        bForm:'2740-8923034-3',
+        fCNIC:'345-34534534-3',
+        eMail:'adnansadiq@gmail.com',
+        address:'cahk number 230 EB',
+        country:'Pakistan',
+        city:'Vehari',
+        province:'Punjab',
+        fProfession:'Busuniss ',
+        mQualification:'Matric',
+        fQualification:'Matric',
+        fNumber:'030300030',
+        gender:'Male',
+        religion:'Islam'
     })
-    const resetHandler=()=>{
-        setStudentData({
-            name:'',
-            fName:'',
-            class:'',
-            section:'',
-            bForm:'',
-            fCNIC:'',
-            eMail:'',
-            address:'',
-            country:'',
-            city:'',
-            province:'',
-            fProfession:'',
-            mQualification:'',
-            fQualification:'',
-            fNumber:'',
-            gender:'',
-            religion:''
-        })
-    }
+
     const onChangeHandler=(e)=>{
         setStudentData({...studentData, [e.target.name]:e.target.value})
         console.log(studentData)
@@ -190,8 +170,8 @@ function AdmitionForm() {
                                     <input type="file" class="form-control-file"/>
                                 </div>
                                 <div class="col-12 form-group mg-t-8">
-                                    <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                    <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow" onClick={resetHandler}>Reset</button>
+                                    <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Update</button>
+                                    <button  class="btn-fill-lg bg-blue-dark btn-hover-yellow">cancel</button>
                                 </div>
                             </div>
                         </form>
@@ -206,4 +186,4 @@ function AdmitionForm() {
   )
 }
 
-export default AdmitionForm
+export default UpdateStudent

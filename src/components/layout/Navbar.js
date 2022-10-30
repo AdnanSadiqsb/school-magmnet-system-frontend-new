@@ -49,7 +49,7 @@ function Navbar() {
                             <a onClick={()=>navClickHandler('dashboard')} href="#" class="nav-link"><i class="flaticon-dashboard" ></i><span >Dashboard</span></a>
                             <ul class="nav sub-group-menu menu-open" style={{'display':`${dashDisplay}`}}>
                                 <li class="nav-item">
-                                    <Link to={'/dashboard'} class="nav-link"><i class="fas fa-angle-right"></i>Admin</Link>
+                                    <Link to={'/'} class="nav-link"><i class="fas fa-angle-right"></i>Admin</Link>
                                 </li>
                                 <li class="nav-item">
                                     <Link to={'/studentPanel'} class="nav-link"><i

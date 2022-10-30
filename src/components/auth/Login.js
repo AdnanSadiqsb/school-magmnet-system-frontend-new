@@ -15,22 +15,25 @@ function Login() {
   const submitHandler = async (e) => {
     e.preventDefault();
     const response = await loginUser(login);
-
+    console.log(response)
     if (response.message) {
-      setAlert({ visible: true, mesg: response.response.data });
-      return;
+     setAlert({ visible: true, mesg: response.response.data });
+      
     }
+    else{
 
-    setAlert({ visible: true, mesg: "user logged in successfully" });
-    const role = response.role;
-    console.log(role);
-
-    if (role === 1) {
-      setAuthUser({ ...authUser, isAdmin: true });
-      navigate("/");
+      
+      setAlert({ visible: true, mesg: "user logged in successfully" });
+      const role = response.role;
+      console.log(role);
+      
+      if (role === 1) {
+        setAuthUser({ ...authUser, isAdmin: true });
+        navigate("/");
     }
-    if (role === 2) navigate("/teacherPanel");
-    if (role === 3) navigate("/studentPanel");
+    else if (role === 2) navigate("/teacherPanel");
+    else if (role === 3) navigate("/studentPanel");
+  }
   };
 
   return (

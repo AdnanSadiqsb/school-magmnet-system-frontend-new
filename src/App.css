@@ -1,10 +1,20 @@
 .alert{
     width: 300px;
-    height: 200px;
     background-color: black;
     z-index: 999;
     position: fixed;
-    top: calc(100% - 200px);
+    bottom: 0;
     right: calc(50% - 150px);
     color: white;
+    text-align: center;
+    box-shadow: rgba(235, 235, 239, 0.2) 0px 7px 29px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+.alert>p{
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 0;
 }

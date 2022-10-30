@@ -28,7 +28,7 @@ import { useContext } from "react";
 import AuthContext from "./context/auth/AuthContext";
 import PageNotFound from "./components/PageNotFound";
 import Alert from "./components/alert/alert";
-
+import UpdateStudent from "./components/student/UpdateStudent";
 function App() {
   const context = useContext(AuthContext);
   const { authUser, alert } = context;
@@ -84,6 +84,10 @@ function App() {
               <Route
                 path="/teacherDetail"
                 element={isAdmin ? <TeacheDetail /> : <Login />}
+              ></Route>
+              <Route
+                path="/updateStudent"
+                element={<UpdateStudent /> }
               ></Route>
               <Route
                 path="/teacherPayment"

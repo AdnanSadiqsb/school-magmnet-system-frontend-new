@@ -23,17 +23,12 @@ const AuthState = (props) => {
         "http://localhost:5000/api/v1/login",
         userData
       );
-
+        console.log(data)
       setLoading(false);
 
-      //   const role = data.role;
-      //   setRole(role);
-      //   role === 1 && setAuthUser({ ...authUser, isAdmin: true });
-      //   role === 2 && setAuthUser({ ...authUser, isTeacher: true });
-      //   role === 3 && setAuthUser({ ...authUser, isStudent: true });
+
       return data;
     } catch (error) {
-      console.log(error.response.data);
       return error;
     }
   };
