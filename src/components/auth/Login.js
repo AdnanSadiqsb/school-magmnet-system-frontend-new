@@ -1,39 +1,36 @@
 import React, { useState, useContext, useEffect } from "react";
-import {useAlert} from 'react-alert'
 import "./login.css";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/auth/AuthContext";
 function Login() {
-    const alert=useAlert()
-    const navigate=useNavigate()
-    const context=useContext(AuthContext)
-    const {loginUser, success, error, loading, role}=context
+  const navigate = useNavigate();
+  const context = useContext(AuthContext);
+  const { loginUser, loading, alert, setAlert, setAuthUser, authUser } = context;
 
   const [login, setLogin] = useState({
     email: "",
     password: "",
   });
 
-  useEffect(()=>{
-    if(success)
-    {
-      alert.success('user loged success fuly')
-      if(role===1)
-      navigate('/dashboard')
-      if(role===2)
-      navigate('/teacherPanel')
-      if(role===3)
-      navigate('/studentPanel')
-    }
-    if(error)
-    {
-      alert.error(error)
-
-    }
-  },[loading, success,alert,error])
   const submitHandler = async (e) => {
     e.preventDefault();
-    loginUser(login)
+    const response = await loginUser(login);
+
+    if (response.message) {
+      setAlert({ visible: true, mesg: response.response.data });
+      return;
+    }
+
+    setAlert({ visible: true, mesg: "user logged in successfully" });
+    const role = response.role;
+    console.log(role);
+
+    if (role === 1) {
+      setAuthUser({ ...authUser, isAdmin: true });
+      navigate("/");
+    }
+    if (role === 2) navigate("/teacherPanel");
+    if (role === 3) navigate("/studentPanel");
   };
 
   return (

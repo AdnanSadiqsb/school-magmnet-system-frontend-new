@@ -1,0 +1,10 @@
+.alert{
+    width: 300px;
+    height: 200px;
+    background-color: black;
+    z-index: 999;
+    position: fixed;
+    top: calc(100% - 200px);
+    right: calc(50% - 150px);
+    color: white;
+}
