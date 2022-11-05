@@ -1,6 +1,14 @@
-import React, { Fragment } from 'react'
-
-function StudentDetail() {
+import React, { Fragment, useContext } from 'react'
+import { useEffect } from 'react'
+import StudentContext from '../../context/student/StudentContext'
+import {useParams} from 'react-router-dom'
+function StudentDetail({student}) {
+    const studentContext=useContext(StudentContext)
+    const {studentDetail, getSingleStudent }=studentContext
+    const {id}=useParams()
+    useEffect(()=>{
+        getSingleStudent(id)
+    },[])
   return (
     <Fragment>
                <div class="dashboard-content-one">
@@ -20,24 +28,15 @@ function StudentDetail() {
                             <div class="item-title">
                                 <h3>About Me</h3>
                             </div>
-                           <div class="dropdown">
-                                <a class="dropdown-toggle" href="#" role="button" 
-                                data-toggle="dropdown" aria-expanded="false">...</a>
-        
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                                </div>
-                            </div>
+                          
                         </div>
                         <div class="single-info-details">
                             <div class="item-img">
-                                <img src="img/figure/student1.jpg" alt="student"/>
+                                <img src="/img/figure/student1.jpg" alt="student"/>
                             </div>
                             <div class="item-content">
                                 <div class="header-inline item-header">
-                                    <h3 class="text-dark-medium font-medium">Jessia Rose</h3>
+                                    <h3 class="text-dark-medium font-medium">{studentDetail.student_name && studentDetail.student_name}</h3>
                                     <div class="header-elements">
                                         <ul>
                                             <li><a href="#"><i class="far fa-edit"></i></a></li>
@@ -46,51 +45,46 @@ function StudentDetail() {
                                         </ul>
                                     </div>
                                 </div>
-                                <p>Aliquam erat volutpat. Curabiene natis massa sedde lacu stiquen sodale 
+                                {/* <p>Aliquam erat volutpat. Curabiene natis massa sedde lacu stiquen sodale 
                                 word moun taiery.Aliquam erat volutpaturabiene natis massa sedde  sodale 
-                                word moun taiery.</p>
+                                word moun taiery.</p> */}
                                 <div class="info-table table-responsive">
                                     <table class="table text-nowrap">
                                         <tbody>
                                             <tr>
                                                 <td>Name:</td>
-                                                <td class="font-medium text-dark-medium">Jessia Rose</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.student_name && studentDetail.student_name}</td>
                                             </tr>
                                             <tr>
                                                 <td>Gender:</td>
-                                                <td class="font-medium text-dark-medium">Female</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.gender && studentDetail.gender}</td>
                                             </tr>
                                             <tr>
                                                 <td>Father Name:</td>
-                                                <td class="font-medium text-dark-medium">Steve Jones</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.father_name && studentDetail.father_name}</td>
                                             </tr>
                                             <tr>
-                                                <td>Mother Name:</td>
-                                                <td class="font-medium text-dark-medium">Naomi Rose</td>
+                                                <td>Student B_Form:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.B_form && studentDetail.B_form}</td>
                                             </tr>
+                                       
+                                          
                                             <tr>
-                                                <td>Date Of Birth:</td>
-                                                <td class="font-medium text-dark-medium">07.08.2016</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Religion:</td>
-                                                <td class="font-medium text-dark-medium">Islam</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Father Occupation:</td>
-                                                <td class="font-medium text-dark-medium">Graphic Designer</td>
+                                                <td>Father Number:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.father_number && studentDetail.father_number}</td>
                                             </tr>
                                             <tr>
                                                 <td>E-mail:</td>
-                                                <td class="font-medium text-dark-medium">jessiarose@gmail.com</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.email && studentDetail.email}</td>
                                             </tr>
-                                            <tr>
-                                                <td>Admission Date:</td>
-                                                <td class="font-medium text-dark-medium">07.08.2019</td>
-                                            </tr>
+                                           
                                             <tr>
                                                 <td>Class:</td>
-                                                <td class="font-medium text-dark-medium">2</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.class && studentDetail.class}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Section:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.section && studentDetail.section}</td>
                                             </tr>
                                             <tr>
                                                 <td>Section:</td>
@@ -101,13 +95,47 @@ function StudentDetail() {
                                                 <td class="font-medium text-dark-medium">10005</td>
                                             </tr>
                                             <tr>
-                                                <td>Address:</td>
-                                                <td class="font-medium text-dark-medium">House #10, Road #6, Australia</td>
+                                                <td>Country:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.country && studentDetail.country}</td>
                                             </tr>
                                             <tr>
-                                                <td>Phone:</td>
-                                                <td class="font-medium text-dark-medium">+ 88 98568888418</td>
+                                                <td>Province:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.province && studentDetail.province}</td>
                                             </tr>
+                                            <tr>
+                                                <td>City:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.city && studentDetail.city}</td>
+                                            </tr>
+                                           
+                                            <tr>
+                                                <td>Address:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.address && studentDetail.address}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Religion:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.religion && studentDetail.religion}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Father Profession:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.father_profession && studentDetail.father_profession}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Father Qualification:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.father_qualification&& studentDetail.father_qualification}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mother Qualification:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.mother_qualification&& studentDetail.mother_qualification}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Father CNIC:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.Father_CNIC&& studentDetail.Father_CNIC}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Admission Date:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.createdAt &&  studentDetail.createdAt.slice(0,10)}</td>
+                                            </tr>
+                                            
                                         </tbody>
                                     </table>
                                 </div>

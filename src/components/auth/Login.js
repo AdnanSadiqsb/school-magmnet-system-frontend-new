@@ -2,10 +2,13 @@ import React, { useState, useContext, useEffect } from "react";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/auth/AuthContext";
+import AlertContext from "../../context/alert/AlertContext";
 function Login() {
   const navigate = useNavigate();
   const context = useContext(AuthContext);
-  const { loginUser, loading, alert, setAlert, setAuthUser, authUser } = context;
+  const alertContext=useContext(AlertContext)
+  const {setAlert}=alertContext
+  const { loginUser, setAuthUser, authUser } = context;
 
   const [login, setLogin] = useState({
     email: "",
@@ -25,7 +28,6 @@ function Login() {
       
       setAlert({ visible: true, mesg: "user logged in successfully" });
       const role = response.role;
-      console.log(role);
       
       if (role === 1) {
         setAuthUser({ ...authUser, isAdmin: true });

@@ -3,23 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {positions,transitions,Provider as AlertPRovider, Provider} from 'react-alert'
 import AuthState from './context/auth/AuthState';
-import AlertTemplate from 'react-alert-template-basic';
+import StudentState from './context/student/StudentState';
+import AlertState from './context/alert/AlertState';
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const options={
-  timeout:5000,
-  position:positions.BOTTOM_CENTER,
-  transition:transitions.SCALE
-}
+
 root.render(
   
 <AuthState>
+  <StudentState>
+    <AlertState>
 
-    <AlertPRovider template={AlertTemplate} {...options}>
+
 
       <App />
-    </AlertPRovider>
+    </AlertState>
+  </StudentState>
 </AuthState>
 
 

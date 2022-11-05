@@ -1,7 +1,7 @@
 import React,{useEffect, useContext} from 'react';
-import AuthContext from "../../context/auth/AuthContext";
+import AlertContext from '../../context/alert/AlertContext';
 export default function Alert() {
-    const context = useContext(AuthContext);
+    const context = useContext(AlertContext);
     const { alert, setAlert } = context;
 
     useEffect(() => {

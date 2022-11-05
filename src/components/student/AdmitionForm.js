@@ -1,52 +1,78 @@
-import React, { Fragment , useState} from 'react'
-
+import React, { Fragment , useState, useContext} from 'react'
+import StudentContext from '../../context/student/StudentContext'
+import AlertContext from '../../context/alert/AlertContext'
 function AdmitionForm() {
+    const studentCntxt=useContext(StudentContext)
+    const alerContext=useContext(AlertContext)
+    const {setAlert}=alerContext
+    const {registerStudent}=studentCntxt
     const [studentData, setStudentData]=useState({
-        name:'',
-        fName:'',
+        student_name:'',
+        father_name:'',
         class:'',
         section:'',
-        bForm:'',
-        fCNIC:'',
-        eMail:'',
+        B_form:'',
+        Father_CNIC:'',
+        email:'',
         address:'',
         country:'',
         city:'',
         province:'',
-        fProfession:'',
-        mQualification:'',
-        fQualification:'',
-        fNumber:'',
+        father_profession:'',
+        mother_qualification:'',
+        father_qualification:'',
+        father_number:'',
         gender:'',
-        religion:''
+        religion:'',
+        student_image:""
     })
     const resetHandler=()=>{
         setStudentData({
-            name:'',
-            fName:'',
+            student_name:'',
+            father_name:'',
             class:'',
             section:'',
-            bForm:'',
-            fCNIC:'',
-            eMail:'',
+            B_form:'',
+            Father_CNIC:'',
+            email:'',
             address:'',
             country:'',
             city:'',
             province:'',
-            fProfession:'',
-            mQualification:'',
-            fQualification:'',
-            fNumber:'',
+            father_profession:'',
+            mother_qualification:'',
+            father_qualification:'',
+            father_number:'',
             gender:'',
-            religion:''
+            religion:'',
+            student_image:''
         })
     }
     const onChangeHandler=(e)=>{
-        setStudentData({...studentData, [e.target.name]:e.target.value})
-        console.log(studentData)
+        if(e.target.name==='student_image')
+        {
+            console.log("image path change")
+            setStudentData({...studentData, [e.target.name]:'image path'})
+
+        }
+        else{
+
+            setStudentData({...studentData, [e.target.name]:e.target.value})
+        }
     }
-    const submitHandler=()=>{
+    const submitHandler=async(e)=>{
+        e.preventDefault()
+        const response = await registerStudent(studentData);
+        console.log(response)
+        setAlert({ visible: true, mesg: response });
+
+         resetHandler()
+          
         
+   
+
+      
+     
     }
   return (
     <Fragment>
@@ -85,15 +111,15 @@ function AdmitionForm() {
                             <div class="row">
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Student Name *</label>
-                                    <input type="text" placeholder="" class="form-control"name='name'  value={studentData.name} onChange={onChangeHandler}/>
+                                    <input type="text" placeholder="" class="form-control"name='student_name' required  value={studentData.student_name} onChange={onChangeHandler}/>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Father/Guardian Name *</label>
-                                    <input type="text" placeholder="" class="form-control"name='fName'  value={studentData.fName} onChange={onChangeHandler}/>
+                                    <input type="text" placeholder="" required class="form-control"name='father_name'  value={studentData.father_name} onChange={onChangeHandler}/>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Gender *</label>
-                                    <select class="select2" name='gender'  value={studentData.gender} onChange={onChangeHandler}>
+                                    <select class="select2" name='gender' required  value={studentData.gender} onChange={onChangeHandler}>
                                         <option value="">Choose option *</option>
                                         <option value="Male">Male</option>
                                         <option value="fMale">Female</option>
@@ -103,51 +129,51 @@ function AdmitionForm() {
                          
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Country *</label>
-                                    <input type="text" placeholder="" class="form-control" name='country'  value={studentData.country} onChange={onChangeHandler}/>
+                                    <input type="text" placeholder="" required class="form-control" name='country'  value={studentData.country} onChange={onChangeHandler}/>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>City *</label>
-                                    <input type="text" placeholder="" class="form-control" name='city'  value={studentData.city} onChange={onChangeHandler} />
+                                    <input type="text" placeholder="" required class="form-control" name='city'  value={studentData.city} onChange={onChangeHandler} />
                                 </div>
                                 
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Province/ State *</label>
-                                    <input type="text" placeholder="" class="form-control" name='province'  value={studentData.province} onChange={onChangeHandler}/>
+                                    <input type="text" placeholder="" required class="form-control" name='province'  value={studentData.province} onChange={onChangeHandler}/>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Address *</label>
-                                    <input type="text" placeholder="" class="form-control" name='address'  value={studentData.address} onChange={onChangeHandler}/>
+                                    <input type="text" placeholder="" required class="form-control" name='address'  value={studentData.address} onChange={onChangeHandler}/>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>E-Mail</label>
-                                    <input type="email" placeholder="" class="form-control" name='eMail'  value={studentData.eMail} onChange={onChangeHandler}/>
+                                    <input type="email" placeholder="" class="form-control" name='email'  value={studentData.email} onChange={onChangeHandler}/>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>B-Form No</label>
-                                    <input type="text" placeholder="xxxx-xxxxxxxx-x" class="form-control" name='bForm'  value={studentData.bForm} onChange={onChangeHandler}/>
+                                    <input type="text" placeholder="" maxLength={13} minLength={13} class="form-control" name='B_form'  value={studentData.B_form} onChange={onChangeHandler}/>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>CNIC of father</label>
-                                    <input type="text" placeholder="xxxx-xxxxxxxx-x" class="form-control" name='fCNIC'  value={studentData.fCNIC} onChange={onChangeHandler}/>
+                                    <input type="number" placeholder="" required minLength={13} class="form-control" name='Father_CNIC'  value={studentData.Father_CNIC} onChange={onChangeHandler}/>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Father profession</label>
-                                    <input type="text" placeholder="" class="form-control" name='fProfession'  value={studentData.fProfession} onChange={onChangeHandler}/>
+                                    <input type="text" placeholder="" class="form-control" name='father_profession'  value={studentData.father_profession} onChange={onChangeHandler}/>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Mothers Qualification</label>
-                                    <input type="text" placeholder="" class="form-control" name='mQualification'  value={studentData.mQualification} onChange={onChangeHandler}/>
+                                    <input type="text" placeholder="" class="form-control" name='mother_qualification'  value={studentData.mother_qualification} onChange={onChangeHandler}/>
                                 </div>
                                 
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Fathers Qualification</label>
-                                    <input type="text" placeholder="" class="form-control" name='fQualification'  value={studentData.fQualification} onChange={onChangeHandler}/>
+                                    <input type="text" placeholder="" class="form-control" name='father_qualification'  value={studentData.father_qualification} onChange={onChangeHandler}/>
                                 </div>
                                 
                          
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Father/Guardian number</label>
-                                    <input type="text" placeholder="" class="form-control" name='fNumber'  value={studentData.fNumber} onChange={onChangeHandler}/>
+                                    <input type="number" placeholder="" required maxLength={11} minLength={10} class="form-control" name='father_number'  value={studentData.father_number} onChange={onChangeHandler}/>
                                 </div>
                               
                             
@@ -155,7 +181,7 @@ function AdmitionForm() {
                        
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Class *</label>
-                                    <select class="select2" name='class'  value={studentData.class} onChange={onChangeHandler}>
+                                    <select class="select2" required name='class'  value={studentData.class} onChange={onChangeHandler}>
                                         <option value="">Choose option *</option>
                                         <option value="1">Play</option>
                                         <option value="2">Nursery</option>
@@ -168,7 +194,7 @@ function AdmitionForm() {
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Section *</label>
-                                    <select class="select2" name='section'  value={studentData.section} onChange={onChangeHandler}>
+                                    <select class="select2"  name='section'  value={studentData.section} onChange={onChangeHandler}>
                                         <option value="">Choose Option *</option>
                                         <option value="1">Pink</option>
                                         <option value="2">Blue</option>
@@ -178,16 +204,22 @@ function AdmitionForm() {
                                     </select>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>Religion</label>
-                                    <input type="text" placeholder="" class="form-control" name='religion'  value={studentData.religion} onChange={onChangeHandler}/>
+                                    <label>religion *</label>
+                                    <select class="select2" name='religion' required  value={studentData.religion} onChange={onChangeHandler}>
+                                        <option value="">Choose Option *</option>
+                                        <option value="Islam">Islam</option>
+                                        <option value="Hindu">Hindu</option>
+                                        <option value="Christian">Christian</option>
+                                      
+                                    </select>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Admission ID</label>
-                                    <input type="text" placeholder="" class="form-control" name='name' />
+                                    <input type="text" placeholder="" class="form-control" name='admission_ID' />
                                 </div>
                                 <div class="col-lg-6 col-12 form-group mg-t-30">
                                     <label class="text-dark-medium">Upload Student Photo (150px X 150px)</label>
-                                    <input type="file" class="form-control-file"/>
+                                    <input type="file" required name='student_image' onChange={onChangeHandler} class="form-control-file"/>
                                 </div>
                                 <div class="col-12 form-group mg-t-8">
                                     <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>

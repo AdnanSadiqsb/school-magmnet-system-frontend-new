@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import AuthContext from "./AuthContext";
-import { data } from "jquery";
 const AuthState = (props) => {
-  const [alert, setAlert] = useState({
-    visible: false,
-    mesg: "",
-  });
   const [loading, setLoading] = useState(false);
-
   const [authUser, setAuthUser] = useState({
     isAdmin: false,
     isStudent: false,
     isTeacher: false,
   });
-  const [role, setRole] = useState(0);
 
   const loginUser = async (userData) => {
     try {
@@ -25,8 +18,6 @@ const AuthState = (props) => {
       );
       localStorage.setItem("authkey","324dsfs243423rsdf34")
       setLoading(false);
-
-
       return data;
     } catch (error) {
       return error;
@@ -39,9 +30,7 @@ const AuthState = (props) => {
         authUser,
         setAuthUser,
         loading,
-        role,
-        alert,
-        setAlert,
+        
       }}
     >
       {props.children}

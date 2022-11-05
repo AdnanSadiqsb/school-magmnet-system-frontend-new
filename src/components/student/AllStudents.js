@@ -1,7 +1,27 @@
 import React, { Fragment } from 'react'
 import StudentList from './StudentList'
+import StudentContext from '../../context/student/StudentContext'
+import { useContext } from 'react'
+import { useEffect } from 'react'
 function AllStudents() {
-    const array=[1,2,3,4,5,6,7]
+    const studentContext=useContext(StudentContext)
+
+    const {getAllStudents, studentData, deleteStudent} =studentContext
+   const deleteStudentfun=(id)=>{
+    const option=window.confirm(`Are you sure to delete the student`)
+    if(option===true)
+    {
+
+        deleteStudent(id)
+        getAllStudents()
+    }
+
+   }
+    useEffect(()=>{
+        getAllStudents()
+        console.log(studentData)
+
+    },[])
   return (
     <Fragment>
              <div class="dashboard-content-one">
@@ -63,14 +83,14 @@ function AllStudents() {
                                         <th>Section</th>
                                         <th>Parents</th>
                                         <th>Phone</th>
-                                        <th>E-mail</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
-                                        array.map(()=>{
-                                            return   <StudentList/>   
+                                        studentData && studentData.map((student)=>{
+                                            
+                                            return   <StudentList student={student} deleteStudentfun={deleteStudentfun}  key={student._id}/>   
                                         })
                                     }
 

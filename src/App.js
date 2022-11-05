@@ -30,9 +30,12 @@ import PageNotFound from "./components/PageNotFound";
 import Alert from "./components/alert/alert";
 import UpdateStudent from "./components/student/UpdateStudent";
 import { useEffect } from "react";
+import AlertContext from "./context/alert/AlertContext";
 function App() {
   const context = useContext(AuthContext);
-  const { authUser, alert,setAuthUser } = context;
+  const alertContext=useContext(AlertContext)
+  const {alert} =alertContext
+  const { authUser,setAuthUser } = context;
   const { isAdmin, isTeacher, isStudent  } = authUser;
   useEffect(()=>{
     if(localStorage.getItem("authkey"))
@@ -69,7 +72,7 @@ function App() {
                 element={isAdmin ? <AllStudents /> : <Login />}
               ></Route>
               <Route
-                path="/studentDetail"
+                path="/studentDetail/:id"
                 element={isAdmin ? <StudentDetail /> : <Login />}
               ></Route>
               <Route
@@ -123,7 +126,7 @@ function App() {
         </div>
       </Router>
 
-      {alert.visible && <Alert/>}
+      {alert.visible && <Alert />}
     </>
   );
 }
