@@ -63,7 +63,7 @@ function Login() {
               <div class="form-group">
                 <label for="password">Password</label>
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Enter password"
                   class="form-control"
                   name="password"
