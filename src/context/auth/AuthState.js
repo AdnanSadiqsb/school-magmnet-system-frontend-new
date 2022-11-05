@@ -20,10 +20,10 @@ const AuthState = (props) => {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        "http://localhost:5000/api/v1/login",
+        "https://powerful-taiga-74684.herokuapp.com/api/v1/login",
         userData
       );
-        console.log(data)
+      localStorage.setItem("authkey","324dsfs243423rsdf34")
       setLoading(false);
 
 

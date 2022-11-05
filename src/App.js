@@ -29,10 +29,17 @@ import AuthContext from "./context/auth/AuthContext";
 import PageNotFound from "./components/PageNotFound";
 import Alert from "./components/alert/alert";
 import UpdateStudent from "./components/student/UpdateStudent";
+import { useEffect } from "react";
 function App() {
   const context = useContext(AuthContext);
-  const { authUser, alert } = context;
-  const { isAdmin, isTeacher, isStudent } = authUser;
+  const { authUser, alert,setAuthUser } = context;
+  const { isAdmin, isTeacher, isStudent  } = authUser;
+  useEffect(()=>{
+    if(localStorage.getItem("authkey"))
+    {
+      setAuthUser({ ...authUser, isAdmin: true })
+    }
+  },[])
   return (
     <>
       <Router>
