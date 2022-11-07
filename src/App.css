@@ -18,3 +18,23 @@
     font-size: 2rem;
     margin-bottom: 0;
 }
+
+.MuiTablePagination-caption {
+    flex-shrink: 0;
+    font-size: 1.5rem !important;
+}
+
+::-webkit-scrollbar {
+    width: 8px !important; 
+  }
+    ::-webkit-scrollbar-track {
+    background: #504f5136; 
+  }
+    ::-webkit-scrollbar-thumb {
+    background:#2806b19f; 
+      border-radius:5px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    
+    background: #ffa60169; 
+  } 

@@ -132,7 +132,7 @@ function AdmitionForm() {
                                         <option value="">Choose option *</option>
                                         <option value="Male">Male</option>
                                         <option value="fMale">Female</option>
-\                                    </select>
+                                    </select>
                                 </div>
                          
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
@@ -227,7 +227,7 @@ function AdmitionForm() {
                                 </div>
                                 <div class="col-lg-6 col-12 form-group mg-t-30">
                                     <label class="text-dark-medium">Upload Student Photo (150px X 150px)</label>
-                                    <input type="file" required name='student_image' onChange={onChangeHandler} class="form-control-file"/>
+                                    <input type="file" pattern='image/*' required name='student_image' onChange={onChangeHandler} class="form-control-file"/>
                                 </div>
                                 <div class="col-12 form-group mg-t-8">
                                     <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>

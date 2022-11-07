@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react'
-import StudentList from './StudentList'
 import StudentContext from '../../context/student/StudentContext'
 import { useContext } from 'react'
 import { useEffect } from 'react'
+import {DataGrid} from '@material-ui/data-grid'
+import {Link} from 'react-router-dom'
 import AlertContext from '../../context/alert/AlertContext'
 function AllStudents() {
     
@@ -24,7 +25,46 @@ function AllStudents() {
         getAllStudents()
 
     },[alert])
-  return (
+
+    const columns=[
+        {field:'id',headName:'Admission ID',  minWidth:200},
+        {field:'name',headName:'Name', minWidth:200,},
+        {field:'class',headName:'Class', minWidth:150},
+        {field:'parent',headName:'Parents', minWidth:150},
+
+        {field:'phone',headName:'Phone', minWidth:150},
+
+        {field:'action', headerName:'Action',  minWidth:250, sortable:false, renderCell:(params)=>{
+            return( 
+                <>
+                    <Link class="dropdown-item" to="#" onClick={()=>deleteStudentfun(params.getValue(params.id,"id"))}><i
+                            class="fas fa-times text-orange-red"></i>Delete</Link>
+                    <Link class="dropdown-item" to={`/updateStudent/${params.getValue(params.id,"id")}`}><i
+                            class="fas fa-cogs text-dark-pastel-green"></i>Edit</Link>
+                    <Link class="dropdown-item" to={`/studentDetail/${params.getValue(params.id,"id")}`}><i
+                            class="fas fa-redo-alt text-orange-peel"></i>View</Link>
+            
+                 </>
+                )
+            } 
+        }
+    ]
+        
+
+    
+    const rows=[]
+        studentData && studentData.forEach((item,index)=>{
+            rows.push({
+                id:item._id,
+                name:item.student_name,
+                phone:item.father_number,
+                class:item.class,
+                parent:item.father_name
+   
+            })
+        })
+
+        return (
     <Fragment>
              <div class="dashboard-content-one">
                 <div class="breadcrumbs-area">
@@ -75,29 +115,19 @@ function AllStudents() {
                         </form>
                         <div class="table-responsive">
                             <table class="table display data-table text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Roll
-                                        </th>
-                                        <th>Name</th>
-                                        <th>Class</th>
-                                        <th>Section</th>
-                                        <th>Parents</th>
-                                        <th>Phone</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        studentData && studentData.map((student)=>{
-                                            
-                                            return   <StudentList student={student} deleteStudentfun={deleteStudentfun}  key={student._id}/>   
-                                        })
-                                    }
+                            <div className="myOrderPage" >
+                                <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                pageSize={10}
+                                disableSelectionOnClick
+                                className='MyOrderTable'
+                                autoHeight
+                                style={{'fontSize':'1.4rem', 'minHeight':'50vh'}}
+                                />
 
-                              
-                                 </tbody>
+
+                            </div>
                             </table>
                         </div>
                     </div>
