@@ -1,13 +1,14 @@
 import React, { Fragment, useState } from 'react'
+import { useEffect } from 'react'
 import {Link} from 'react-router-dom'
-function Navbar() {
+function Navbar({sideBarDisplay}) {
     const [dashDisplay, setDashDispaly]=useState('none')
     const [stuDisplay, setStuDispaly]=useState('none')
     const [teaDisplay, setTeaDispaly]=useState('none')
     const [accDisplay, setAccDispaly]=useState('none')
     const [exaDisplay, setExaDispaly]=useState('none')
     const [claDisplay, setClaDispaly]=useState('none')
-
+  
     const navClickHandler=(linkName)=>{
         if(linkName==='dashboard')
         {
@@ -37,7 +38,7 @@ function Navbar() {
     }
   return (
     <Fragment>
-            <div class="sidebar-main sidebar-menu-one sidebar-expand-md sidebar-color">
+            <div class="sidebar-main sidebar-menu-one sidebar-expand-md sidebar-color" style={{'left':`${sideBarDisplay}%`}}>
                <div class="mobile-sidebar-header d-md-none">
                     <div class="header-logo">
                         <a href="index.html"><img src="img/logo1.png" alt="logo"/></a>
@@ -71,10 +72,7 @@ function Navbar() {
                                     <Link to={'allStudents'} class="nav-link"><i class="fas fa-angle-right"></i>All
                                         Students</Link>
                                 </li>
-                                <li class="nav-item">
-                                    <Link to="studentDetail" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Student Details</Link>
-                                </li>
+                             
                                 <li class="nav-item">
                                     <Link to={'admitionForm'} class="nav-link"><i
                                             class="fas fa-angle-right"></i>Admission Form</Link>

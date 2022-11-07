@@ -62,17 +62,26 @@ function AdmitionForm() {
     }
     const submitHandler=async(e)=>{
         e.preventDefault()
+        if(studentData.Father_CNIC.length<13){
+            setAlert({ visible: true, mesg:"CNIC lenght not less then 13" });
+
+            return
+        }
+        if(studentData.B_form.length!=0 && studentData.B_form.length<13)
+        {
+            setAlert({ visible: true, mesg: "student form lenght not less then 13" });
+            return
+        }
+        if(studentData.father_number.length<10)
+        {  
+            setAlert({ visible: true, mesg: "father number length not less then 10" });
+            return
+        }
         const response = await registerStudent(studentData);
         console.log(response)
         setAlert({ visible: true, mesg: response });
 
          resetHandler()
-          
-        
-   
-
-      
-     
     }
   return (
     <Fragment>
@@ -123,8 +132,7 @@ function AdmitionForm() {
                                         <option value="">Choose option *</option>
                                         <option value="Male">Male</option>
                                         <option value="fMale">Female</option>
-                                        <option value="Other">Others</option>
-                                    </select>
+\                                    </select>
                                 </div>
                          
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
@@ -150,11 +158,11 @@ function AdmitionForm() {
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>B-Form No</label>
-                                    <input type="text" placeholder="" maxLength={13} minLength={13} class="form-control" name='B_form'  value={studentData.B_form} onChange={onChangeHandler}/>
+                                    <input type="number" placeholder="" maxLength={13}  onInput={(e) => {if (e.target.value.length > e.target.maxLength)e.target.value = e.target.value.slice(0,e.target.maxLength);}} class="form-control" name='B_form'  value={studentData.B_form} onChange={onChangeHandler}/>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>CNIC of father</label>
-                                    <input type="number" placeholder="" required minLength={13} class="form-control" name='Father_CNIC'  value={studentData.Father_CNIC} onChange={onChangeHandler}/>
+                                    <input type="number"  maxLength={13}  onInput={(e) => {if (e.target.value.length > e.target.maxLength)e.target.value = e.target.value.slice(0,e.target.maxLength);}}  placeholder="" required class="form-control" name='Father_CNIC'  value={studentData.Father_CNIC} onChange={onChangeHandler}/>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Father profession</label>
@@ -173,7 +181,7 @@ function AdmitionForm() {
                          
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Father/Guardian number</label>
-                                    <input type="number" placeholder="" required maxLength={11} minLength={10} class="form-control" name='father_number'  value={studentData.father_number} onChange={onChangeHandler}/>
+                                    <input type="number" placeholder="" required maxLength={10}  onInput={(e) => {if (e.target.value.length > e.target.maxLength)e.target.value = e.target.value.slice(0,e.target.maxLength);}} class="form-control" name='father_number'  value={studentData.father_number} onChange={onChangeHandler}/>
                                 </div>
                               
                             
@@ -193,7 +201,7 @@ function AdmitionForm() {
                                     </select>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>Section *</label>
+                                    <label>Section</label>
                                     <select class="select2"  name='section'  value={studentData.section} onChange={onChangeHandler}>
                                         <option value="">Choose Option *</option>
                                         <option value="1">Pink</option>

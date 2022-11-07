@@ -20,7 +20,7 @@ function StudentList({student, deleteStudentfun}) {
                     <div class="dropdown-menu dropdown-menu-right">
                         <Link class="dropdown-item" to="#" onClick={()=>deleteStudentfun(student._id)}><i
                                 class="fas fa-times text-orange-red"></i>Delete</Link>
-                        <Link class="dropdown-item" to="/updateStudent"><i
+                        <Link class="dropdown-item" to={`/updateStudent/${student._id}`}><i
                                 class="fas fa-cogs text-dark-pastel-green"></i>Edit</Link>
                         <Link class="dropdown-item" to={`/studentDetail/${student._id}`}><i
                                 class="fas fa-redo-alt text-orange-peel"></i>View</Link>

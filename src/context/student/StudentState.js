@@ -35,6 +35,20 @@ const StudentState = (props) => {
         console.log(error)
     }
   };
+  const updateStudent = async (studentData,id) => {
+    try {
+        const { data } = await axios.patch(
+        `https://powerful-taiga-74684.herokuapp.com/api/v1/student/${id}`,
+        studentData
+      );
+        
+
+      console.log(data)
+      return data;
+    } catch (error) {
+        console.log(error)
+    }
+  };
   const getSingleStudent = async (id) => {
     try {
      const { data } = await axios.get(
@@ -69,7 +83,8 @@ const StudentState = (props) => {
         studentData,
         deleteStudent,
         studentDetail,
-        getSingleStudent
+        getSingleStudent,
+        updateStudent
       }}
     >
       {props.children}

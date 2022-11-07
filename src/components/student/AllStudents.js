@@ -3,9 +3,12 @@ import StudentList from './StudentList'
 import StudentContext from '../../context/student/StudentContext'
 import { useContext } from 'react'
 import { useEffect } from 'react'
+import AlertContext from '../../context/alert/AlertContext'
 function AllStudents() {
+    
     const studentContext=useContext(StudentContext)
-
+    const alerContext=useContext(AlertContext)
+    const {alert}=alerContext
     const {getAllStudents, studentData, deleteStudent} =studentContext
    const deleteStudentfun=(id)=>{
     const option=window.confirm(`Are you sure to delete the student`)
@@ -19,9 +22,8 @@ function AllStudents() {
    }
     useEffect(()=>{
         getAllStudents()
-        console.log(studentData)
 
-    },[])
+    },[alert])
   return (
     <Fragment>
              <div class="dashboard-content-one">

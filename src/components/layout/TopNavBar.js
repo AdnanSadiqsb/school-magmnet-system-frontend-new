@@ -1,10 +1,21 @@
 import React, { Fragment } from 'react'
 import {Link} from 'react-router-dom';
 
-function TopNavBar() {
+function TopNavBar({sideBarData}) {
+    const {sideBarDisplay, setSideBarDisplay}=sideBarData
 
     const name="adnan"
     const role='admin'
+    const toggleDispaly=()=>{
+        console.log(sideBarDisplay);
+            if(sideBarDisplay===0)
+            {
+                setSideBarDisplay(100)
+            }
+            else{
+                setSideBarDisplay(0)
+            }
+    }
   return (
     <Fragment>
            <div className="navbar navbar-expand-md header-menu-one bg-light">
@@ -16,7 +27,7 @@ function TopNavBar() {
                 </div>
                  <div className="toggle-button sidebar-toggle">
                     <button type="button" className="item-link">
-                        <span className="btn-icon-wrap">
+                        <span className="btn-icon-wrap" >
                             <span></span>
                             <span></span>
                             <span></span>
@@ -28,7 +39,7 @@ function TopNavBar() {
                <button className="navbar-toggler pulse-animation" type="button" data-toggle="collapse" data-target="#mobile-navbar" aria-expanded="false">
                     <i className="far fa-arrow-alt-circle-down"></i>
                 </button>
-                <button type="button" className="navbar-toggler sidebar-toggle-mobile">
+                <button type="button" className="navbar-toggler sidebar-toggle-mobile" onClick={toggleDispaly}>
                     <i className="fas fa-bars"></i>
                 </button>
             </div>

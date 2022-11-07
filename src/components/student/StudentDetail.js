@@ -2,13 +2,17 @@ import React, { Fragment, useContext } from 'react'
 import { useEffect } from 'react'
 import StudentContext from '../../context/student/StudentContext'
 import {useParams} from 'react-router-dom'
+import AlertContext from '../../context/alert/AlertContext'
+import {Link} from 'react-router-dom'
 function StudentDetail({student}) {
     const studentContext=useContext(StudentContext)
     const {studentDetail, getSingleStudent }=studentContext
+    const alerContext=useContext(AlertContext)
+    const {alert}=alerContext
     const {id}=useParams()
     useEffect(()=>{
         getSingleStudent(id)
-    },[])
+    },[alert])
   return (
     <Fragment>
                <div class="dashboard-content-one">

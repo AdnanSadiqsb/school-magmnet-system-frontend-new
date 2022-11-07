@@ -31,6 +31,7 @@ import Alert from "./components/alert/alert";
 import UpdateStudent from "./components/student/UpdateStudent";
 import { useEffect } from "react";
 import AlertContext from "./context/alert/AlertContext";
+import { useState } from "react";
 function App() {
   const context = useContext(AuthContext);
   const alertContext=useContext(AlertContext)
@@ -43,13 +44,14 @@ function App() {
       setAuthUser({ ...authUser, isAdmin: true })
     }
   },[])
+  const [sideBarDisplay, setSideBarDisplay]=useState(100)
   return (
     <>
       <Router>
-        <div id="wrapper" class="wrapper bg-ash">
-          <TopNavBar />
+        <div id="wrapper" class="wrapper bg-ash sidebar-collapsed-mobil">
+          <TopNavBar  sideBarData={{setSideBarDisplay, sideBarDisplay}} />
           <div class="dashboard-page-one">
-            <Navbar />
+            <Navbar sideBarDisplay={sideBarDisplay}/>
 
             <Routes>
               <Route
@@ -96,7 +98,7 @@ function App() {
                 element={isAdmin ? <TeacheDetail /> : <Login />}
               ></Route>
               <Route
-                path="/updateStudent"
+                path="/updateStudent/:id"
                 element={<UpdateStudent /> }
               ></Route>
               <Route
