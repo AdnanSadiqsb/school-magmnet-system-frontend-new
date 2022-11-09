@@ -38,3 +38,22 @@
     
     background: #ffa60169; 
   } 
+
+  select{
+    width: 100%;
+    background-color: #F0F1F3;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+  }
+  select option{
+    
+    padding: 1rem;
+    
+  }
+  @media print {
+    .not-print{
+      display: none;
+    }
+  }

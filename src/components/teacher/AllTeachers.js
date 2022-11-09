@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 
 function AllTeachers() {
+
   return (
     <Fragment>
            <div class="dashboard-content-one">
@@ -26,7 +27,7 @@ function AllTeachers() {
         
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green" ></i>Print</a>
                                     <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
                                 </div>
                             </div>
@@ -47,7 +48,7 @@ function AllTeachers() {
                                 </div>
                             </div>
                         </form>
-                        <div class="table-responsive">
+                        <div class="table-responsive" id='DivIdToPrint'>
                             <table class="table display data-table text-nowrap">
                                 <thead>
                                     <tr>

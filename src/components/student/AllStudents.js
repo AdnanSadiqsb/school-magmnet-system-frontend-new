@@ -63,7 +63,19 @@ function AllStudents() {
    
             })
         })
+        const printAllStudents=()=>{
+            var divToPrint=document.getElementById('DivIdToPrint');
 
+            var newWin=window.open('','Print-Window');
+          
+            newWin.document.open();
+          
+            newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+          
+            newWin.document.close();
+          
+            setTimeout(function(){newWin.close();},10);
+        }
         return (
     <Fragment>
              <div class="dashboard-content-one">
@@ -90,9 +102,10 @@ function AllStudents() {
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="#"><i
                                             class="fas fa-times text-orange-red"></i>Close</a>
-                                    <a class="dropdown-item" href="#"><i
-                                            class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                    <a class="dropdown-item" href="#"><i
+                                    <a class="dropdown-item" href="#" onClick={printAllStudents}><i
+                                            class="fas fa-print text-dark-pastel-green" ></i>Print</a>
+
+                                    <a class="dropdown-item" href="#" onClick={getAllStudents}><i
                                             class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
                                 </div>
                             </div>
@@ -113,7 +126,7 @@ function AllStudents() {
                                 </div>
                             </div>
                         </form>
-                        <div class="table-responsive">
+                        <div class="table-responsive" id='DivIdToPrint'>
                             <table class="table display data-table text-nowrap">
                             <div className="myOrderPage" >
                                 <DataGrid

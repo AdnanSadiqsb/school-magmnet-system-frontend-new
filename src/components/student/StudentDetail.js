@@ -1,10 +1,11 @@
 import React, { Fragment, useContext } from 'react'
 import { useEffect } from 'react'
 import StudentContext from '../../context/student/StudentContext'
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 import AlertContext from '../../context/alert/AlertContext'
 import {Link} from 'react-router-dom'
 function StudentDetail({student}) {
+    const navigate=useNavigate()
     const studentContext=useContext(StudentContext)
     const {studentDetail, getSingleStudent }=studentContext
     const alerContext=useContext(AlertContext)
@@ -13,12 +14,26 @@ function StudentDetail({student}) {
     useEffect(()=>{
         getSingleStudent(id)
     },[alert])
+    const printStudent=()=>{
+        var divToPrint=document.getElementById('DivIdToPrint');
+
+        var newWin=window.open('','Print-Window');
+      
+        newWin.document.open();
+      
+        newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+      
+        newWin.document.close();
+      
+        setTimeout(function(){newWin.close();},10);
+
+    }
   return (
     <Fragment>
                <div class="dashboard-content-one">
                 <div class="breadcrumbs-area">
                     <h3>Students</h3>
-                    <ul>
+                    <ul>  
                         <li>
                             <a href="index.html">Home</a>
                         </li>
@@ -26,7 +41,7 @@ function StudentDetail({student}) {
                     </ul>
                 </div>
            
-                <div class="card height-auto">
+                <div class="card height-auto" >
                     <div class="card-body">
                         <div class="heading-layout1">
                             <div class="item-title">
@@ -34,17 +49,17 @@ function StudentDetail({student}) {
                             </div>
                           
                         </div>
-                        <div class="single-info-details">
+                        <div class="single-info-details" >
                             <div class="item-img">
                                 <img src="/img/figure/student1.jpg" alt="student"/>
                             </div>
-                            <div class="item-content">
+                            <div class="item-content ">
                                 <div class="header-inline item-header">
                                     <h3 class="text-dark-medium font-medium">{studentDetail.student_name && studentDetail.student_name}</h3>
                                     <div class="header-elements">
                                         <ul>
-                                            <li><a href="#"><i class="far fa-edit"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-print"></i></a></li>
+                                            <li><Link to={`/updateStudent/${id}`}><i class="far fa-edit"></i></Link></li>
+                                            <li><a href="#" onClick={printStudent}><i class="fas fa-print"></i></a></li>
                                             <li><a href="#"><i class="fas fa-download"></i></a></li>
                                         </ul>
                                     </div>
@@ -52,7 +67,7 @@ function StudentDetail({student}) {
                                 {/* <p>Aliquam erat volutpat. Curabiene natis massa sedde lacu stiquen sodale 
                                 word moun taiery.Aliquam erat volutpaturabiene natis massa sedde  sodale 
                                 word moun taiery.</p> */}
-                                <div class="info-table table-responsive">
+                                <div class="info-table table-responsive" id='DivIdToPrint' >
                                     <table class="table text-nowrap">
                                         <tbody>
                                             <tr>

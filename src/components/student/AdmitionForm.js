@@ -1,7 +1,9 @@
 import React, { Fragment , useState, useContext} from 'react'
 import StudentContext from '../../context/student/StudentContext'
 import AlertContext from '../../context/alert/AlertContext'
+import {useNavigate} from 'react-router-dom'
 function AdmitionForm() {
+    const navigate=useNavigate()
     const studentCntxt=useContext(StudentContext)
     const alerContext=useContext(AlertContext)
     const {setAlert}=alerContext
@@ -80,7 +82,7 @@ function AdmitionForm() {
         const response = await registerStudent(studentData);
         console.log(response)
         setAlert({ visible: true, mesg: response });
-
+        navigate('/allStudents')
          resetHandler()
     }
   return (
