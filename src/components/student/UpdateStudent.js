@@ -4,6 +4,7 @@ import {useParams, useNavigate} from 'react-router-dom'
 import { useEffect } from 'react'
 import AlertContext from '../../context/alert/AlertContext'
 import ClassContext from '../../context/class/ClassContext'
+import { useRef } from 'react'
 function UpdateStudent() {
     
     const naviagate=useNavigate()
@@ -13,21 +14,38 @@ function UpdateStudent() {
     const {studentDetail, getSingleStudent, updateStudent }=studentContext
     const alertContext=useContext(AlertContext)
     const {setAlert, alert}=alertContext
-    const {id}=useParams()
-    const [studentData, setStudentData]=useState({})
-    
-    useEffect(()=>{
-        getSingleStudent(id)
-        getAllClasses()
-        console.log(studentData.class && studentData.class._id)
-
-        console.log( getSectionsAgainstClass(studentData.class && studentData.class._id))
-    },[])
     const [sectionDisabled,setSectionDisabled]=useState(true)
     const [sections, setSections]=useState([])
+    const {id}=useParams()
+    const [studentData, setStudentData]=useState({})
+    const selectedClass=useRef()
+    const sectionRef=useRef()
+    useEffect(()=>{
+        renderData()
+    },[studentDetail])
+    useEffect(()=>{
+
+        getSingleStudent(id)
+        getAllClasses()
+    },[])
+    const renderData=async()=>
+    {
+        console.log(studentDetail)
+        if(studentDetail)
+        {
+
+            selectedClass.current.value=studentDetail.class._id
+            setSections((await getSectionsAgainstClass(studentDetail.class._id)))
+            setSectionDisabled(false)
+        }
+    }
+    
  
     const onClassChangeHandler=async(e)=>{
+        studentData.section=""
+        console.log(studentData)
         setSectionDisabled(true)
+
         setSections( await getSectionsAgainstClass(e.target.value))
         setSectionDisabled(false)
         
@@ -54,6 +72,9 @@ function UpdateStudent() {
                 gender:studentDetail.gender&& studentDetail.gender,
                 religion:studentDetail.religion&& studentDetail.religion,
                 student_image:studentDetail.student_image&& studentDetail.student_image,
+                class:studentDetail.class&& studentDetail.class._id,
+                section:studentDetail.section&& studentDetail.section._id
+
             }
         )
     }
@@ -192,7 +213,7 @@ function UpdateStudent() {
                        
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Class *</label>
-                                    <select class="select2" required name='class'     onChange={onClassChangeHandler}>
+                                    <select class="select2" required name='class' ref={selectedClass}    onChange={onClassChangeHandler}>
                                         <option value="">Choose option *</option>
                                         {
                                             classData.map((item)=>{
@@ -207,7 +228,7 @@ function UpdateStudent() {
 
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Section</label>
-                                    <select class="select2"  name='section'  value={studentData.section} onChange={onChangeHandler} disabled={sectionDisabled}>
+                                    <select class="select2" required  name='section'  value={studentData.section} ref={sectionRef} onChange={onChangeHandler} disabled={sectionDisabled}>
                                         <option value="">Choose Option *</option>
                                         {
                                             sections.map((item)=>{

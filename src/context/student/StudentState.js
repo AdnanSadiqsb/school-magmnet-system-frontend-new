@@ -5,7 +5,7 @@ const StudentState = (props) => {
 
   const [studentDetail, setStudentDetail]=useState({})
   const [studentData, setStudentData]=useState([])
-
+  
   const registerStudent = async (studentData) => {
     try {
         const { data } = await axios.post(
@@ -38,12 +38,14 @@ const StudentState = (props) => {
         `https://powerful-taiga-74684.herokuapp.com/api/v1/student/${id}`,
         studentData
       );
-        
+      // setAlert({ visible: true, mesg:data});
+
 
       console.log(data)
       return data;
     } catch (error) {
-        console.log(error)
+      // setAlert({ visible: true, mesg:error.response.data.message});
+
     }
   };
   const getSingleStudent = async (id) => {
@@ -53,7 +55,6 @@ const StudentState = (props) => {
       );
       console.log(data)
       setStudentDetail(data)
-      
     } catch (error) {
         console.log(error)
     }

@@ -124,7 +124,6 @@ const ClassState = (props) => {
       const {data}  = await axios.get(
         `https://powerful-taiga-74684.herokuapp.com/api/v1/section/${classId}/all`
       );
-      console.log(data)
       return data
     }
     catch(error){

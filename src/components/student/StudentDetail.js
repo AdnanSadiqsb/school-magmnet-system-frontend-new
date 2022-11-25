@@ -105,14 +105,8 @@ function StudentDetail({student}) {
                                                 <td>Section:</td>
                                                 <td class="font-medium text-dark-medium">{studentDetail.section && studentDetail.section.name}</td>
                                             </tr>
-                                            <tr>
-                                                <td>Section:</td>
-                                                <td class="font-medium text-dark-medium">Pink</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Roll:</td>
-                                                <td class="font-medium text-dark-medium">10005</td>
-                                            </tr>
+                                            
+                                           
                                             <tr>
                                                 <td>Country:</td>
                                                 <td class="font-medium text-dark-medium">{studentDetail.country && studentDetail.country}</td>
