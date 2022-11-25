@@ -2,12 +2,31 @@ import React, { Fragment , useState, useContext} from 'react'
 import StudentContext from '../../context/student/StudentContext'
 import AlertContext from '../../context/alert/AlertContext'
 import {useNavigate} from 'react-router-dom'
+import ClassContext from '../../context/class/ClassContext'
+import { useEffect } from 'react'
 function AdmitionForm() {
+    const classContxt=useContext(ClassContext)
+    const {getSectionsAgainstClass, getAllClasses,classData}=classContxt
     const navigate=useNavigate()
     const studentCntxt=useContext(StudentContext)
     const alerContext=useContext(AlertContext)
     const {setAlert}=alerContext
     const {registerStudent}=studentCntxt
+    const [sectionDisabled,setSectionDisabled]=useState(true)
+    const [sections, setSections]=useState([])
+    useEffect(()=>{
+        getAllClasses()
+    },[])
+    const onClassChangeHandler=async(e)=>{
+        setSectionDisabled(true)
+        setSections( await getSectionsAgainstClass(e.target.value))
+        setSectionDisabled(false)
+        
+        setStudentData({...studentData, [e.target.name]:e.target.value})
+        console.log(studentData)
+        
+    }
+   
     const [studentData, setStudentData]=useState({
         student_name:'',
         father_name:'',
@@ -61,6 +80,7 @@ function AdmitionForm() {
 
             setStudentData({...studentData, [e.target.name]:e.target.value})
         }
+        console.log(studentData)
     }
     const submitHandler=async(e)=>{
         e.preventDefault()
@@ -79,8 +99,8 @@ function AdmitionForm() {
             setAlert({ visible: true, mesg: "father number length not less then 10" });
             return
         }
+        console.log(studentData)
         const response = await registerStudent(studentData);
-        console.log(response)
         setAlert({ visible: true, mesg: response });
         navigate('/allStudents')
          resetHandler()
@@ -191,32 +211,38 @@ function AdmitionForm() {
                        
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Class *</label>
-                                    <select class="select2" required name='class'  value={studentData.class} onChange={onChangeHandler}>
+                                    <select class="select2" required name='class'    onChange={onClassChangeHandler}>
                                         <option value="">Choose option *</option>
-                                        <option value="1">Play</option>
-                                        <option value="2">Nursery</option>
-                                        <option value="3">One</option>
-                                        <option value="3">Two</option>
-                                        <option value="3">Three</option>
-                                        <option value="3">Four</option>
-                                        <option value="3">Five</option>
+                                        {
+                                            classData.map((item)=>{
+                                                return <option key={item._id}  value={item._id} >{item.name}</option>
+
+                                            })
+                                        }
                                     </select>
                                 </div>
+                                {
+                                    studentData.class && sections.length>0 &&
+
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Section</label>
-                                    <select class="select2"  name='section'  value={studentData.section} onChange={onChangeHandler}>
+                                    <select class="select2"  name='section'  value={studentData.section} onChange={onChangeHandler} disabled={sectionDisabled}>
                                         <option value="">Choose Option *</option>
-                                        <option value="1">Pink</option>
-                                        <option value="2">Blue</option>
-                                        <option value="3">Bird</option>
-                                        <option value="3">Rose</option>
-                                        <option value="3">Red</option>
+                                        {
+                                            sections.map((item)=>{
+                                                
+                                                return <option key={item._d} value={item._id} >{item.name}</option>
+                                            })
+                                        }
+                                       
                                     </select>
                                 </div>
+                                }
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>religion *</label>
                                     <select class="select2" name='religion' required  value={studentData.religion} onChange={onChangeHandler}>
                                         <option value="">Choose Option *</option>
+                                        
                                         <option value="Islam">Islam</option>
                                         <option value="Hindu">Hindu</option>
                                         <option value="Christian">Christian</option>

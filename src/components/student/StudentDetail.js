@@ -99,11 +99,11 @@ function StudentDetail({student}) {
                                            
                                             <tr>
                                                 <td>Class:</td>
-                                                <td class="font-medium text-dark-medium">{studentDetail.class && studentDetail.class}</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.class && studentDetail.class.name}</td>
                                             </tr>
                                             <tr>
                                                 <td>Section:</td>
-                                                <td class="font-medium text-dark-medium">{studentDetail.section && studentDetail.section}</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.section && studentDetail.section.name}</td>
                                             </tr>
                                             <tr>
                                                 <td>Section:</td>

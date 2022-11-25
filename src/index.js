@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import AuthState from './context/auth/AuthState';
 import StudentState from './context/student/StudentState';
 import AlertState from './context/alert/AlertState';
+import ClassState from './context/class/ClassState';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
@@ -13,10 +14,13 @@ root.render(
 <AuthState>
   <StudentState>
     <AlertState>
-
+      <ClassState>
 
 
       <App />
+
+
+      </ClassState>
     </AlertState>
   </StudentState>
 </AuthState>

@@ -2,10 +2,7 @@ import React,{useState} from "react";
 import axios from "axios";
 import StudentContext from "./StudentContext";
 const StudentState = (props) => {
-  const [alert, setAlert] = useState({
-    visible: false,
-    mesg: "",
-  });
+
   const [studentDetail, setStudentDetail]=useState({})
   const [studentData, setStudentData]=useState([])
 
@@ -52,7 +49,7 @@ const StudentState = (props) => {
   const getSingleStudent = async (id) => {
     try {
      const { data } = await axios.get(
-        `https://powerful-taiga-74684.herokuapp.com/api/v1/student/${id}`
+        `http://localhost:5000/api/v1/student/${id}`
       );
       console.log(data)
       setStudentDetail(data)
@@ -77,8 +74,7 @@ const StudentState = (props) => {
     <StudentContext.Provider
       value={{
         registerStudent,
-        alert,
-        setAlert,
+   
         getAllStudents,
         studentData,
         deleteStudent,

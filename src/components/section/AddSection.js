@@ -7,58 +7,46 @@ import AlertContext from '../../context/alert/AlertContext';
 import {DataGrid} from '@material-ui/data-grid'
 
 import { useEffect } from 'react';
-function AddClass() {
+function AddSection() {
     const alertContext=useContext(AlertContext)
     const {alert}=alertContext
     const clasContext=useContext(ClassContext)
-    const {addClass,getAllClasses,classData,deleteClass,updateClass}=clasContext
-    const [clasName, setClassName]=useState("")
-    const [section,setSection]=useState(0)
+    const {addSetion,getAllClasses,classData,getAllSections, sectionsData}=clasContext
+    const [sectionName, setSectionName]=useState("")
     const [status,setStatus]=useState("")
+    const [classid, setClassid]=useState("")
     const submitHandler=(e)=>{
         e.preventDefault()
+        addSetion({classId:classid, name:sectionName,status:status})
         
-        if(status)
-        {
-
-            addClass({name:clasName,status:status})
-        }
-        else{
-            addClass({name:clasName})
-
-        }
         restHandler()
 
     }
     useEffect(()=>{
+        getAllSections()
         getAllClasses()
     },[alert])
     const restHandler=()=>{
-       setClassName("")
+       setSectionName("")
        setStatus("")
-       setSection(0)
+       setClassid("")
     }
     const rougt=()=>{
 
     }
-    const updateClassHandler=(id, name)=>{
-        console.log(id, name)
-
-    }
     const columns=[
         {field:'id',headName:'Admission ID',  hide:true},
-        {field:'No', minWidth:50},
-
-        {field:'name',headName:'name', minWidth:200,},
-        {field:'status',headName:'status', minWidth:150},
+        {field:'No',  minWidth:100},
+        {field:'sectionName',headName:'Name', minWidth:200,},
+        {field:'status',headName:'Class', minWidth:150},
         
 
         {field:'action', headerName:'Action',  minWidth:250, sortable:false, renderCell:(params)=>{
             return( 
                 <>
-                    <Link class="dropdown-item" to="#" onClick={()=>deleteClass(params.getValue(params.id,"id"))}><i
+                    <Link class="dropdown-item" to="#" onClick={()=>rougt(params.getValue(params.id,"id"))}><i
                             class="fas fa-times text-orange-red"></i>Delete</Link>
-                    <Link class="dropdown-item" to={`/updateClass/${params.getValue(params.id,"id")}`}><i
+                    <Link class="dropdown-item" to={`/section/update/${params.getValue(params.id,"id")}`}><i
                             class="fas fa-cogs text-dark-pastel-green"></i>Edit</Link>
                     
             
@@ -71,11 +59,11 @@ function AddClass() {
 
     
     const rows=[]
-    classData && classData.forEach((item,index)=>{
+    sectionsData && sectionsData.forEach((item,index)=>{
             rows.push({
                 id:item._id,
                 No:index+1,
-                name:item.name,
+                sectionName:item.name,
                 status:item.status
    
             })
@@ -84,12 +72,12 @@ function AddClass() {
     <Fragment>
          <div class="dashboard-content-one">
                 <div class="breadcrumbs-area">
-                    <h3>Classes</h3>
+                    <h3>Sections</h3>
                     <ul>
                         <li>
                             <a href="index.html">Home</a>
                         </li>
-                        <li>Add New Class</li>
+                        <li>Add New Section</li>
                     </ul>
                 </div>
             
@@ -97,19 +85,19 @@ function AddClass() {
                     <div class="card-body">
                         <div class="heading-layout1">
                             <div class="item-title">
-                                <h3>Add New Class</h3>
+                                <h3>Add New Section</h3>
                             </div>
-                         
+                           
                         </div>
                         <form class="new-added-form" onSubmit={submitHandler}>
                             <div class="row">
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>Class Name</label>
-                                    <input type="text" required placeholder="" class="form-control" value={clasName} onChange={(e)=>setClassName(e.target.value)} />
+                                    <label>section Name</label>
+                                    <input type="text" minLength={3} required placeholder="" class="form-control" value={sectionName} onChange={(e)=>setSectionName(e.target.value)} />
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>status </label>
-                                    <select class="select2" name='status' value={status} onChange={(e)=>setStatus(e.target.value)}>
+                                    <select class="select2" name='status' value={status} onChange={(e)=>setStatus(e.target.value)} required>
                                         <option value="">Choose Option *</option>
                                         
                                         <option value="Active">Active</option>
@@ -117,7 +105,22 @@ function AddClass() {
                                       
                                     </select>
                                 </div>
-                                
+
+                                <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                    <label>class </label>
+                                    <select class="select2" name='class' value={classid} onChange={(e)=>setClassid(e.target.value)} required>
+                                        <option value="">Choose class *</option>
+                                        {
+                                            classData.map((item)=>{
+                                                return <option key={item._id} value= {item._id}> {item.name}</option>
+
+                                            })
+                                        }
+                                        
+                                      
+                                    </select>
+                                </div>
+                               
                               
                                
                             
@@ -135,9 +138,20 @@ function AddClass() {
                     <div class="card-body">
                         <div class="heading-layout1">
                             <div class="item-title">
-                                <h3>All Classes Data</h3>
+                                <h3>All Students Data</h3>
                             </div>
-                          
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                    aria-expanded="false">...</a>
+
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#"><i
+                                            class="fas fa-times text-orange-red"></i>Close</a>
+                                    
+                                    <a class="dropdown-item" href="#" onClick={getAllClasses}><i
+                                            class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
+                                </div>
+                            </div>
                         </div>
                         <form class="mg-b-20">
                             <div class="row gutters-8">
@@ -182,4 +196,4 @@ function AddClass() {
   )
 }
 
-export default AddClass
+export default AddSection

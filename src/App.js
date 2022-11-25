@@ -15,7 +15,6 @@ import TeacherPayment from "./components/teacher/TeacherPayment";
 import FeeCollection from "./components/account/FeeCollection";
 import AllExpenses from "./components/account/AllExpenses";
 import AddExpenses from "./components/account/AddExpenses";
-import AllClasses from "./components/class/AllClasses";
 import AddClass from "./components/class/AddClass";
 import AllSubjects from "./components/subjects/AllSubjects";
 import StudentAttendence from "./components/student/StudentAttendence";
@@ -32,6 +31,9 @@ import UpdateStudent from "./components/student/UpdateStudent";
 import { useEffect } from "react";
 import AlertContext from "./context/alert/AlertContext";
 import { useState } from "react";
+import UpdateClass from "./components/class/UpdateClass";
+import AddSection from "./components/section/AddSection";
+import UpdateSection from "./components/section/UpdateSection";
 function App() {
   const context = useContext(AuthContext);
   const alertContext=useContext(AlertContext)
@@ -108,13 +110,13 @@ function App() {
               <Route path="/allFees" element={<FeeCollection />}></Route>
               <Route path="/allExpense" element={<AllExpenses />}></Route>
               <Route path="/addExpense" element={<AddExpenses />}></Route>
-              <Route path="/addClass" element={<AddClass />}></Route>
+              <Route path="/class" element={<AddClass />}></Route>
+              <Route path="/updateClass/:id" element={<UpdateClass/>}></Route>
               <Route path="/allSubject" element={<AllSubjects />}></Route>
               <Route
                 path="/studentAttendence"
                 element={<StudentAttendence />}
               ></Route>
-              <Route path="/allClass" element={<AllClasses />}></Route>
               <Route path="/examSchedule" element={<ExamSchedual />}></Route>
               <Route path="/examGrade" element={<ExamGrade />}></Route>
               {/* { (true || false) && <Route path='/accountSettings' element={ <AccountSetting/>} ></Route>} */}
@@ -123,6 +125,9 @@ function App() {
                 element={false || true ? <AccountSetting /> : <Login />}
               ></Route>
               <Route path="*" element={<PageNotFound />}></Route>
+              <Route path="/section" element={<AddSection />}></Route>
+              <Route path="/section/update/:id" element={<UpdateSection />}></Route>
+
             </Routes>
           </div>
         </div>

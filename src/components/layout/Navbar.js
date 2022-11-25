@@ -152,19 +152,13 @@ function Navbar({sideBarDisplay}) {
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a onClick={()=>navClickHandler('class')} href="#" class="nav-link"><i
-                                    class="flaticon-maths-class-materials-cross-of-a-pencil-and-a-ruler"></i><span>Class</span></a>
-                            <ul class="nav sub-group-menu menu-open" style={{'display':`${claDisplay}`}}>
-                                <li class="nav-item">
-                                    <Link to="allClass" class="nav-link"><i class="fas fa-angle-right"></i>All
-                                        Classes</Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link to="addClass" class="nav-link"><i class="fas fa-angle-right"></i>Add New
-                                        Class</Link>
-                                </li>
-                            </ul>
+                        <li class="nav-item">
+                            <Link to="class" class="nav-link"><i
+                                    class="flaticon-maths-class-materials-cross-of-a-pencil-and-a-ruler"></i><span>Class</span></Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link to="section" class="nav-link"><i
+                                    class="flaticon-open-book"></i><span>Section</span></Link>
                         </li>
                         <li class="nav-item">
                             <Link to="allSubject" class="nav-link"><i
@@ -174,6 +168,7 @@ function Navbar({sideBarDisplay}) {
                             <a href="class-routine.html" class="nav-link"><i class="flaticon-calendar"></i><span>Class
                                     Routine</span></a>
                         </li>
+                        
                         <li class="nav-item">
                             <Link to="studentAttendence" class="nav-link"><i
                                     class="flaticon-checklist"></i><span>Attendence</span></Link>

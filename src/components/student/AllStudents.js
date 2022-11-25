@@ -27,7 +27,8 @@ function AllStudents() {
     },[alert])
 
     const columns=[
-        {field:'id',headName:'Admission ID',  minWidth:200},
+        {field:'id',headName:'Admission ID',  minWidth:100, hide:true},
+        {field:'No', minWidth:100},
         {field:'name',headName:'Name', minWidth:200,},
         {field:'class',headName:'Class', minWidth:150},
         {field:'parent',headName:'Parents', minWidth:150},
@@ -54,14 +55,29 @@ function AllStudents() {
     
     const rows=[]
         studentData && studentData.forEach((item,index)=>{
-            rows.push({
-                id:item._id,
-                name:item.student_name,
-                phone:item.father_number,
-                class:item.class,
-                parent:item.father_name
-   
-            })
+            if(item.class)
+            {
+                
+                rows.push({
+                    id:item._id,
+                    No:index+1,
+                    name:item.student_name,
+                    phone:item.father_number,
+                    class:item.class.name,
+                    parent:item.father_name
+                    
+                })
+            }else{
+                rows.push({
+                    id:item._id,
+                    No:index+1,
+                    name:item.student_name,
+                    phone:item.father_number,
+                    parent:item.father_name
+                    
+                })
+
+            }
         })
         const printAllStudents=()=>{
             var divToPrint=document.getElementById('DivIdToPrint');
