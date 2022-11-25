@@ -38,13 +38,15 @@ function AddClass() {
        setStatus("")
        setSection(0)
     }
-    const rougt=()=>{
-
+    const deleteClassHandler=(id)=>{
+        const option=window.confirm(`Are you sure to delete the student`)
+        if(option===true)
+        {
+            deleteClass(id)
+           
+        }
     }
-    const updateClassHandler=(id, name)=>{
-        console.log(id, name)
-
-    }
+   
     const columns=[
         {field:'id',headName:'Admission ID',  hide:true},
         {field:'No', minWidth:50},
@@ -56,7 +58,7 @@ function AddClass() {
         {field:'action', headerName:'Action',  minWidth:250, sortable:false, renderCell:(params)=>{
             return( 
                 <>
-                    <Link class="dropdown-item" to="#" onClick={()=>deleteClass(params.getValue(params.id,"id"))}><i
+                    <Link class="dropdown-item" to="#" onClick={()=>deleteClassHandler(params.getValue(params.id,"id"))}><i
                             class="fas fa-times text-orange-red"></i>Delete</Link>
                     <Link class="dropdown-item" to={`/updateClass/${params.getValue(params.id,"id")}`}><i
                             class="fas fa-cogs text-dark-pastel-green"></i>Edit</Link>

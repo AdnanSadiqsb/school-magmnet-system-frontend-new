@@ -11,14 +11,15 @@ function AddSection() {
     const alertContext=useContext(AlertContext)
     const {alert}=alertContext
     const clasContext=useContext(ClassContext)
-    const {addSetion,getAllClasses,classData,getAllSections, sectionsData}=clasContext
+    const {addSetion,getAllClasses,classData,getAllSections, deleteSection,getSectionsAgainstClass}=clasContext
     const [sectionName, setSectionName]=useState("")
     const [status,setStatus]=useState("")
     const [classid, setClassid]=useState("")
+    const [classDisplay, setClassDiplsy]=useState([])
+    const [classId, setClassId]=useState(undefined)
     const submitHandler=(e)=>{
         e.preventDefault()
         addSetion({classId:classid, name:sectionName,status:status})
-        
         restHandler()
 
     }
@@ -31,10 +32,24 @@ function AddSection() {
        setStatus("")
        setClassid("")
     }
-    const rougt=()=>{
-
+   
+    const onClassDisplayHandler=async(e)=>{
+        console.log(e.target.value)
+        setClassId(e.target.value)
+        setClassDiplsy(await getSectionsAgainstClass(e.target.value))
     }
-    const columns=[
+    const deleteSectionHandler=(sectionId)=>{
+        const option=window.confirm(`Are you sure to delete the student`)
+        if(option===true)
+        {
+            deleteSection({sectionId:sectionId,classId:classId})
+            setClassDiplsy([])
+           
+        }
+    
+       }
+       
+       const columns=[
         {field:'id',headName:'Admission ID',  hide:true},
         {field:'No',  minWidth:100},
         {field:'sectionName',headName:'Name', minWidth:200,},
@@ -44,7 +59,7 @@ function AddSection() {
         {field:'action', headerName:'Action',  minWidth:250, sortable:false, renderCell:(params)=>{
             return( 
                 <>
-                    <Link class="dropdown-item" to="#" onClick={()=>rougt(params.getValue(params.id,"id"))}><i
+                    <Link class="dropdown-item" to="#" onClick={()=>deleteSectionHandler(params.getValue(params.id,"id"))}><i
                             class="fas fa-times text-orange-red"></i>Delete</Link>
                     <Link class="dropdown-item" to={`/section/update/${params.getValue(params.id,"id")}`}><i
                             class="fas fa-cogs text-dark-pastel-green"></i>Edit</Link>
@@ -59,12 +74,12 @@ function AddSection() {
 
     
     const rows=[]
-    sectionsData && sectionsData.forEach((item,index)=>{
+    classDisplay && classDisplay.forEach((item,index)=>{
             rows.push({
                 id:item._id,
                 No:index+1,
                 sectionName:item.name,
-                status:item.status
+                status:item.status 
    
             })
         })
@@ -170,6 +185,20 @@ function AddSection() {
                             </div>
                         </form>
                         <div class="table-responsive" id='DivIdToPrint'>
+                        <div class="col-xl-12 col-lg-12 col-12 form-group">
+                                    <label>Select A Class to view the Sections </label>
+                                    <select class="select2" name='class' value={classDisplay} onChange={onClassDisplayHandler}   required>
+                                        <option value="">Choose class *</option>
+                                        {
+                                            classData.map((item)=>{
+                                                return <option key={item._id} value= {item._id}> {item.name}</option>
+
+                                            })
+                                        }
+                                        
+                                      
+                                    </select>
+                                </div>
                             <table class="table display data-table text-nowrap">
                             <div className="myOrderPage" >
                                 <DataGrid

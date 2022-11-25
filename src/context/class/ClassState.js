@@ -160,6 +160,19 @@ const ClassState = (props) => {
 
     }
   };
+  const deleteSection = async (id) => {
+    try {
+     const { data } = await axios.delete(
+        `https://powerful-taiga-74684.herokuapp.com/api/v1/section`,{params:id}
+      );
+      setAlert({ visible: true, mesg:data});
+
+      
+    } catch (error) {
+      setAlert({ visible: true, mesg:error.response.data.message});
+
+    }
+  };
   return (
     <ClassContext.Provider
       value={{
@@ -176,7 +189,8 @@ const ClassState = (props) => {
         singlSectionData,
         getSingleSection,
         updateSection,
-        getSectionsAgainstClass
+        getSectionsAgainstClass,
+        deleteSection
 
       }}
     >
