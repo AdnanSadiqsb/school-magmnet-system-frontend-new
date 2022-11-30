@@ -11,9 +11,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   
+    <AlertState>
 <AuthState>
   <StudentState>
-    <AlertState>
       <ClassState>
 
 
@@ -21,9 +21,9 @@ root.render(
 
 
       </ClassState>
-    </AlertState>
   </StudentState>
 </AuthState>
+    </AlertState>
 
 
  

@@ -45,7 +45,8 @@ function AdmitionForm() {
         father_number:'',
         gender:'',
         religion:'',
-        student_image:""
+        student_image:"",
+        roll_number:""
     })
     const resetHandler=()=>{
         setStudentData({
@@ -66,7 +67,8 @@ function AdmitionForm() {
             father_number:'',
             gender:'',
             religion:'',
-            student_image:''
+            student_image:'',
+            roll_number:''
         })
     }
     const onChangeHandler=(e)=>{
@@ -99,11 +101,28 @@ function AdmitionForm() {
             setAlert({ visible: true, mesg: "father number length not less then 10" });
             return
         }
+        if(studentData.section==="")
+        {
+           delete studentData.section
+        }
         console.log(studentData)
-        const response = await registerStudent(studentData);
-        setAlert({ visible: true, mesg: response });
-        navigate('/allStudents')
-         resetHandler()
+       
+
+            const response = await registerStudent(studentData);
+            if(response!=null)
+            {
+                setAlert({ visible: true, mesg: response });
+                navigate('/allStudents')
+                resetHandler()
+            }
+            else{
+                setAlert({ visible: true, mesg: "Error accur" });
+ 
+            }
+            
+
+            
+       
     }
   return (
     <Fragment>
@@ -153,7 +172,7 @@ function AdmitionForm() {
                                     <select class="select2" name='gender' required  value={studentData.gender} onChange={onChangeHandler}>
                                         <option value="">Choose option *</option>
                                         <option value="Male">Male</option>
-                                        <option value="fMale">Female</option>
+                                        <option value="Female">Female</option>
                                     </select>
                                 </div>
                          
@@ -238,6 +257,10 @@ function AdmitionForm() {
                                     </select>
                                 </div>
                                 }
+                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                    <label>Roll No *</label>
+                                    <input type="text" required placeholder="" class="form-control" name='roll_number' value={studentData.roll_number} onChange={onChangeHandler} />
+                                </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>religion *</label>
                                     <select class="select2" name='religion' required  value={studentData.religion} onChange={onChangeHandler}>

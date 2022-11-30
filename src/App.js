@@ -34,6 +34,7 @@ import { useState } from "react";
 import UpdateClass from "./components/class/UpdateClass";
 import AddSection from "./components/section/AddSection";
 import UpdateSection from "./components/section/UpdateSection";
+import Fee from "./components/student Fee/Fee";
 function App() {
   const context = useContext(AuthContext);
   const alertContext=useContext(AlertContext)
@@ -127,6 +128,7 @@ function App() {
               <Route path="*" element={<PageNotFound />}></Route>
               <Route path="/section" element={<AddSection />}></Route>
               <Route path="/section/update/:id" element={<UpdateSection />}></Route>
+              <Route path="/fee" element={<Fee />}></Route>
 
             </Routes>
           </div>

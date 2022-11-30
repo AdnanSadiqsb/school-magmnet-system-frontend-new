@@ -52,6 +52,9 @@
     padding: 1rem;
     
   }
+  .css-1r4vtzz {
+    width: 100% !important;
+  }
   @media print {
     .not-print{
       display: none;

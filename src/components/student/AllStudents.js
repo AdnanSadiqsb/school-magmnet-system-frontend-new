@@ -28,7 +28,9 @@ function AllStudents() {
 
     const columns=[
         {field:'id',headName:'Admission ID',  minWidth:100, hide:true},
-        {field:'No', minWidth:100},
+        {field:'No', minWidth:150},
+        {field:'RollNo', minWidth:100},
+
         {field:'name',headName:'Name', minWidth:200,},
         {field:'class',headName:'Class', minWidth:150},
         {field:'parent',headName:'Parents', minWidth:150},
@@ -61,6 +63,7 @@ function AllStudents() {
                 rows.push({
                     id:item._id,
                     No:index+1,
+                    RollNo:item.roll_number,
                     name:item.student_name,
                     phone:item.father_number,
                     class:item.class.name,

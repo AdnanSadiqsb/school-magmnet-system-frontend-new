@@ -73,7 +73,9 @@ function UpdateStudent() {
                 religion:studentDetail.religion&& studentDetail.religion,
                 student_image:studentDetail.student_image&& studentDetail.student_image,
                 class:studentDetail.class&& studentDetail.class._id,
-                section:studentDetail.section&& studentDetail.section._id
+                section:studentDetail.section&& studentDetail.section._id,
+                roll_number:studentDetail.roll_number&& studentDetail.roll_number
+
 
             }
         )
@@ -155,7 +157,7 @@ function UpdateStudent() {
                                     <select class="select2" name='gender' required  value={studentData.gender} onChange={onChangeHandler}>
                                         <option value="">Choose option *</option>
                                         <option value="Male">Male</option>
-                                        <option value="fMale">Female</option>
+                                        <option value="Female">Female</option>
                                     </select>
                                 </div>
                          
@@ -240,6 +242,10 @@ function UpdateStudent() {
                                     </select>
                                 </div>
                                 }
+                                <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                    <label>Roll NO</label>
+                                    <input type="text" placeholder="" required    class="form-control" name='roll_number'  value={studentData.roll_number} onChange={onChangeHandler}/>
+                                </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>religion *</label>
                                     <select class="select2" name='religion' required  value={studentData.religion} onChange={onChangeHandler}>

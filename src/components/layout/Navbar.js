@@ -161,6 +161,10 @@ function Navbar({sideBarDisplay}) {
                                     class="flaticon-open-book"></i><span>Section</span></Link>
                         </li>
                         <li class="nav-item">
+                            <Link to="fee" class="nav-link"><i
+                                    class="flaticon-bus-side-view"></i><span>Fee</span></Link>
+                        </li>
+                        <li class="nav-item">
                             <Link to="allSubject" class="nav-link"><i
                                     class="flaticon-open-book"></i><span>Subject</span></Link>
                         </li>

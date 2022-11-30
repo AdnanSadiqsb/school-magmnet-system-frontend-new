@@ -1,11 +1,11 @@
-import React,{useState} from "react";
+import React,{useState, useContext} from "react";
 import axios from "axios";
 import StudentContext from "./StudentContext";
 const StudentState = (props) => {
 
   const [studentDetail, setStudentDetail]=useState({})
   const [studentData, setStudentData]=useState([])
-  
+ 
   const registerStudent = async (studentData) => {
     try {
         const { data } = await axios.post(
@@ -17,7 +17,9 @@ const StudentState = (props) => {
       console.log(data)
       return data;
     } catch (error) {
-        console.log(error)
+      
+      console.log(error)
+      return null;
     }
   };
   const getAllStudents = async () => {

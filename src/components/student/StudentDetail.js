@@ -75,6 +75,10 @@ function StudentDetail({student}) {
                                                 <td class="font-medium text-dark-medium">{studentDetail.student_name && studentDetail.student_name}</td>
                                             </tr>
                                             <tr>
+                                                <td>Roll No:</td>
+                                                <td class="font-medium text-dark-medium">{studentDetail.roll_number && studentDetail.roll_number}</td>
+                                            </tr>
+                                            <tr>
                                                 <td>Gender:</td>
                                                 <td class="font-medium text-dark-medium">{studentDetail.gender && studentDetail.gender}</td>
                                             </tr>

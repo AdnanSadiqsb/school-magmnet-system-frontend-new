@@ -187,7 +187,7 @@ function AddSection() {
                         <div class="table-responsive" id='DivIdToPrint'>
                         <div class="col-xl-12 col-lg-12 col-12 form-group">
                                     <label>Select A Class to view the Sections </label>
-                                    <select class="select2" name='class' value={classDisplay} onChange={onClassDisplayHandler}   required>
+                                    <select class="select2" name='class'  onChange={onClassDisplayHandler}   required>
                                         <option value="">Choose class *</option>
                                         {
                                             classData.map((item)=>{
